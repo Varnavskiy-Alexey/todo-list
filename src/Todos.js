@@ -9,6 +9,7 @@ function Todos({todos, change, remove}) {
                    todos.map((item, i) => {
                             return(
                             <Todo
+                                key={i}
                                 todo={item}
                                 change={change}
                                 remove={remove}

@@ -12,7 +12,7 @@ let initialTodo = [
 ]
 
 function App() {
-  const[todos, setTodos] =useState([...initialTodo])
+  const[todos, setTodos] =useState(Array.isArray(JSON.parse(localStorage.getItem('todos'))) ? JSON.parse(localStorage.getItem('todos')) : [])
 
   const addTodo = (todo) => {
     setTodos(prev => {
@@ -20,6 +20,7 @@ function App() {
       let findTodo = tmp.find(item => item.title === todo.title)
       if (!findTodo){
         tmp.push(todo)
+        localStorage.setItem('todos', JSON.stringify(tmp))
       }else{
         alert('Такая задача уже существует.')
       }
@@ -30,11 +31,13 @@ function App() {
     let tmp = [...todos]
     let _todo = tmp.find(item => item.title === todo.title)
     _todo.checked = todo.checked
+    localStorage.setItem('todos', JSON.stringify(tmp))
     setTodos(tmp)
   }
   const remove = (todo) => {
     let tmp = [...todos]
     let _todo = tmp.filter(item => item.title !== todo.title)
+    localStorage.setItem('todos', JSON.stringify(_todo))
     setTodos(_todo)
   }
 
